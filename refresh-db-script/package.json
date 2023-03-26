@@ -1,0 +1,20 @@
+{
+  "name": "refresh-db-script",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.272.0",
+    "@aws-sdk/lib-dynamodb": "^3.272.0"
+  },
+  "description": ""
+}

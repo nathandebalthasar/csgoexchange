@@ -1,0 +1,26 @@
+html, body, body > div#root {
+    height: 100%;
+}
+
+@font-face {
+    font-family: 'Noto-sans';
+    src: url('./utils/NotoSans-Regular.ttf');
+}
+
+body {
+    background-color: #211A1D;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    font-family: 'Roboto, sans-serif';
+    font-weight: 700;
+    font-size: 16px;
+}
+
+button {
+    all: unset;
+    cursor: pointer;
+}

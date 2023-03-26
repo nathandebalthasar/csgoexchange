@@ -1,0 +1,50 @@
+{
+    "fr": {
+        "create": {
+            "items-inventory": "Votre inventaire",
+            "items-offered": "A échanger",
+            "steam-items-placeholder": "Types d'objet",
+            "submit-button": "Soumettre l'échange"
+        },
+        "home": {
+            "offer-title": "souhaite échanger",
+            "trade-button": "Échanger",
+            "offer-element-amount": "Nombre:"
+        },
+        "user-trades": {
+            "delete-button": "Supprimer"
+        },
+        "pages": {
+            "my-trades": "Mes échanges",
+            "create": "Créer"
+        },
+        "settings": {
+            "settings": "Paramètres",
+            "logout": "Se déconnecter"
+        }
+    },
+    "en": {
+        "create": {
+            "items-inventory": "Your inventory",
+            "items-offered": "To trade",
+            "steam-items-placeholder": "Item types",
+            "submit-button": "Submit offer"
+        },
+        "home": {
+            "offer-title": "wants to trade",
+            "trade-button": "Trade",
+            "offer-element-amount": "Amount:"
+        },
+        "user-trades": {
+            "delete-button": "Delete"
+        },
+        "pages": {
+            "my-trades": "My trades",
+            "create": "Create"
+        },
+        "settings": {
+            "settings": "Settings",
+            "logout": "Logout"
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "array-offers": [
+        {
+            "PK": "OFFERS#2",
+            "SK": "2023-03-16T13:53:13.451+00:00",
+            "GSI1-PK": "USER#01234567890123456",
+            "GSI1-SK": "OFFER#5ae22773-6564-403c-a9bb-b546ef2fd0fe",
+            "tradeUrl": "https://steamcommunity.com/tradeoffer/new/?partner=098765&token=dzdzd"
+        },
+        {
+            "PK": "OFFERS#2",
+            "SK": "2023-03-14T11:13:51.911+00:00",
+            "GSI1-PK": "USER#01234567890123456",
+            "GSI1-SK": "OFFER#5ae22773-6564-403c-a9bb-b546ef2fd0fe",
+            "tradeUrl": "https://steamcommunity.com/tradeoffer/new/?partner=098765&token=dzdzd"
+        }
+    ],
+    "item-offer": {
+        "userItems": [],
+        "desiredItems": [],
+        "author": "author",
+        "timestamp": "2023-03-16T13:53:13.451+00:00",
+        "tradeUrl": "https://steamcommunity.com/tradeoffer/new/?partner=098765&token=dzdzd",
+        "offerId": "5ae22773-6564-403c-a9bb-b546ef2fd0fe"
+    }
+}

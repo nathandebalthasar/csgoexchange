@@ -1,0 +1,179 @@
+service: ${env:STACK_NAME}-csgoexchange
+useDotenv: true
+frameworkVersion: '3'
+plugins:
+  - serverless-plugin-typescript
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  region: ${env:REGION}
+  runtime: nodejs14.x
+  logRetentionInDays: 3
+  httpApi:
+    cors: true
+    authorizers:
+      default:
+        type: request
+        functionName: authorizer
+        enableSimpleResponses: true
+        identitySource: "$request.header.Authorization"
+      offerAuth:
+        type: request
+        functionName: offerAuthorizer
+        enableSimpleResponses: true
+  environment:
+    STEAM_API_KEY: ${env:STEAM_API_KEY}
+    API_URL: !GetAtt HttpApi.ApiEndpoint
+    REGION: ${env:REGION}
+    DB_USERS: ${env:STACK_NAME}-users
+    HOSTNAME: ${env:HOSTNAME}
+    JWT_SECRET: ${env:JWT_SECRET}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: 'dynamodb:PutItem'
+          Resource: '*'
+        - Effect: Allow
+          Action: 'dynamodb:getItem'
+          Resource: '*'
+        - Effect: Allow
+          Action: 'dynamodb:UpdateItem'
+          Resource: '*'
+        - Effect: Allow
+          Action: 'dynamodb:Query'
+          Resource: '*'
+        - Effect: Allow
+          Action: 'dynamodb:BatchWriteItem'
+          Resource: '*'
+        - Effect: Allow
+          Action: 'dynamodb:BatchGetItem'
+          Resource: '*'
+
+functions:
+  login:
+    name: ${env:STACK_NAME}-login
+    handler: src/lambda/login.login
+    events:
+      - httpApi: GET /login
+  authenticate:
+    name: ${env:STACK_NAME}-authenticate
+    handler: src/lambda/authenticate.authenticate
+    events:
+      - httpApi:
+            method: GET
+            path: /authenticate
+  authorizer:
+    name: ${env:STACK_NAME}-authorizer
+    handler: src/lambda/authorizer.handler
+  offerAuthorizer:
+    name: ${env:STACK_NAME}-offerAuthorizer
+    handler: src/lambda/offerAuthorizer.handler
+  getUser:
+    name: ${env:STACK_NAME}-getUser
+    handler: src/lambda/getUser.handler
+    events:
+      - httpApi:
+            method: GET
+            path: /user
+            authorizer:
+              name: default
+  putTradeUrl:
+    name: ${env:STACK_NAME}-putTradeUrl
+    handler: src/lambda/putTradeUrl.handler
+    events:
+      - httpApi:
+            method: PUT
+            path: /tradeurl
+            authorizer:
+              name: default
+  getInventory:
+    name: ${env:STACK_NAME}-getInventory
+    handler: src/lambda/getInventory.handler
+    events:
+      - httpApi:
+            method: GET
+            path: /inventory
+            authorizer:
+              name: default
+  searchItems:
+    name: ${env:STACK_NAME}-searchItems
+    handler: src/lambda/searchItems.handler
+    events:
+      - httpApi:
+            method: GET
+            path: /search-items
+            authorizer:
+              name: default
+  getItemsTypes:
+    name: ${env:STACK_NAME}-getItemsTypes
+    handler: src/lambda/getItemsTypes.handler
+    events:
+      - httpApi:
+            method: GET
+            path: /items-types
+            authorizer:
+              name: default
+  postOffer:
+    name: ${env:STACK_NAME}-postOffer
+    handler: src/lambda/postOffer.handler
+    events:
+      - httpApi:
+            method: POST
+            path: /offer
+            authorizer:
+              name: default
+  getOffers:
+    name: ${env:STACK_NAME}-getOffers
+    handler: src/lambda/getOffers.handler
+    events:
+      - httpApi:
+            method: GET
+            path: /offers
+            authorizer:
+              name: offerAuth
+  deleteOffer:
+    name: ${env:STACK_NAME}-deleteOffer
+    handler: src/lambda/deleteOffer.handler
+    events:
+      - httpApi:
+            method: DELETE
+            path: /offer
+            authorizer:
+              name: default
+resources:
+  Resources:
+    users:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${env:STACK_NAME}-users
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: 'S'
+          - AttributeName: SK
+            AttributeType: 'S'
+          - AttributeName: GSI1-PK
+            AttributeType: 'S'
+          - AttributeName: GSI1-SK
+            AttributeType: 'S'
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+          - AttributeName: SK
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+        GlobalSecondaryIndexes:
+          - IndexName: GSI1
+            KeySchema:
+              - AttributeName: GSI1-PK
+                KeyType: HASH
+              - AttributeName: GSI1-SK
+                KeyType: RANGE
+            Projection:
+              ProjectionType: 'ALL'
+            ProvisionedThroughput:
+              ReadCapacityUnits: 5
+              WriteCapacityUnits: 5

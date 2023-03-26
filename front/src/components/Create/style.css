@@ -1,0 +1,14 @@
+.MuiAutocomplete-option {
+    color: #211A1D !important;
+    font-weight: normal;
+}
+
+.MuiAutocomplete-listbox .MuiAutocomplete-option {
+    color: #211A1D;
+    font-weight: normal;
+}
+
+.MuiOutlinedInput-notchedOutline {
+    border-color: #6320EE !important;
+    border-radius: 50 !important;
+}
