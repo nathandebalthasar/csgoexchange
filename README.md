@@ -35,6 +35,8 @@ $ yarn install
 $ serverless deploy
 ```
 
+Make sure to run the [refresh-db-script](./refresh-db-script/README.md) available at the root of the repository in order to populate the skins to the database.
+
 Once the stack is deployed on aws you can run the client with the following `.env`:
 ```
 REACT_APP_API_URL=api_url
